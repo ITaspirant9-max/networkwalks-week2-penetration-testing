@@ -1,0 +1,10 @@
+Starting Nmap 7.99 ( https://nmap.org ) at 2026-11-10 09:42 -0500
+Nmap scan report for 10.0.0.1
+Host is up (0.00048s latency).
+MAC Address: 52:54:00:12:35:00 (QEMU virtual NIC)
+Nmap scan report for 10.0.0.3
+Host is up (0.00038s latency).
+MAC Address: 52:54:00:12:35:00 (QEMU virtual NIC)
+Nmap scan report for 10.0.0.2
+Host is up.
+Nmap done: 256 IP addresses (3 hosts up) scanned in 6.53 seconds

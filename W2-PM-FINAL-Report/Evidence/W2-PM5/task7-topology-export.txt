@@ -1,0 +1,2 @@
+/home/kali/week2-w2pm5/W2-PM5-Network-Topology.pdf: PDF document, version 1.7
+-rw-rw-r-- 1 kali kali 6.4K Nov 10 10:20 /home/kali/week2-w2pm5/W2-PM5-Network-Topology.pdf

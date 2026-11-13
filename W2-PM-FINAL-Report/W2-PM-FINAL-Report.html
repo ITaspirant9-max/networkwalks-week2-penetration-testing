@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Week 2 Penetration Testing Report</title>
+<style>
+@page { size: A4; margin: 22mm 18mm; }
+body { font-family: "Liberation Sans", Arial, sans-serif;
+font-size: 10.5pt; line-height: 1.55; color: #263445; }
+h1 { font-size: 25pt; color: #12345a; text-align: center; }
+h2 { color: #174a73; font-size: 16pt; border-bottom: 2px solid #d6e2ed; padding-bottom: 6px; }
+h3 { color: #245b7a; font-size: 12pt; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 9pt; }
+th { background: #173e63; color: white; text-align: left; }
+th, td { border: 1px solid #cbd5df; padding: 7px; }
+tr { page-break-inside: avoid; }
+code { background: #eef2f6; padding: 2px 4px; }
+pre { background: #eef2f6; padding: 10px; white-space: pre-wrap; }
+li { margin-bottom: 4px; }
+h2, h3 { page-break-after: avoid; }
+</style>
+</head>
+<body>
+<h1>PENETRATION TESTING REPORT</h1>
+<h2>Footprinting &amp; Network Scanning Phases</h2>
+<p><strong>Project:</strong> W2-PM-FINAL<br />
+<strong>Program:</strong> Networkwalks Cybersecurity Internship<br />
+<strong>Prepared By:</strong> Abdul Qadir Lakho<br />
+<strong>Batch:</strong> B084B<br />
+<strong>Report Date:</strong> 11 November 2026<br />
+<strong>Modules Completed:</strong> W2-PM1 and W2-PM5</p>
+<hr />
+<h1>1. Liability Disclaimer</h1>
+<p>This report documents educational cybersecurity activities performed within the assigned project scope.</p>
+<p>The W2-PM1 activities involved public-information footprinting of the assigned Networkwalks domain. The W2-PM5 activities were performed within my own VirtualBox NAT Network lab.</p>
+<p>All activities were conducted for educational and research purposes. No exploitation, unauthorized access, or destructive testing was performed.</p>
+<p>These findings should not be interpreted as confirmation of vulnerabilities.</p>
+<h1>2. Executive Summary</h1>
+<p>This report documents two cybersecurity project modules completed during Week 2 of the Networkwalks internship.</p>
+<p>W2-PM1 focused on footprinting and reconnaissance using six Kali Linux tools:</p>
+<ul>
+<li>WHOIS</li>
+<li>WhatWeb</li>
+<li>Nslookup</li>
+<li>cURL</li>
+<li>WAFW00F</li>
+<li>DNSRecon</li>
+</ul>
+<p>W2-PM5 focused on network discovery using Zenmap and Nmap in a VirtualBox lab environment.</p>
+<p>The footprinting activities collected domain registration information, website technology details, DNS records, HTTP response headers, and Web Application Firewall information.</p>
+<p>The network scanning activity identified three live IP addresses on the local VirtualBox subnet, recorded their available MAC addresses, and produced a network topology PDF.</p>
+<p>The exercises demonstrated how reconnaissance and network discovery help security professionals understand an environment before conducting further authorized security assessments.</p>
+<h1>3. Introduction</h1>
+<p>Footprinting and network scanning are important early stages of a cybersecurity assessment.</p>
+<p>Footprinting collects publicly available information about a domain, website, and its infrastructure. Network scanning helps identify active hosts and understand the structure of a network.</p>
+<p>The purpose of these activities was to practise reconnaissance, host discovery, information collection, technical analysis, and security documentation using Kali Linux and Zenmap.</p>
+<h1>4. Scope and Methodology</h1>
+<h2>4.1 W2-PM1 Scope</h2>
+<p>Target domain: networkwalks.com</p>
+<p>The following six tools were used:</p>
+<ol>
+<li>WHOIS</li>
+<li>WhatWeb</li>
+<li>Nslookup</li>
+<li>cURL</li>
+<li>WAFW00F</li>
+<li>DNSRecon</li>
+</ol>
+<p>These tools were used for domain registration lookup, website fingerprinting, DNS resolution, HTTP header inspection, WAF identification, and DNS enumeration.</p>
+<h2>4.2 W2-PM5 Scope</h2>
+<p>Testing environment: Oracle VirtualBox NAT Network</p>
+<ul>
+<li>Operating System: Kali Linux 2026.2</li>
+<li>Network Interface: eth0</li>
+<li>Kali IP Address: 10.0.0.2</li>
+<li>Subnet: 10.0.0.0/24</li>
+<li>Broadcast Address: 10.0.0.255</li>
+<li>Scan Type: Ping Scan / Host Discovery</li>
+</ul>
+<p>The scan was limited to the local VirtualBox lab subnet.</p>
+<h1>5. Tools Used</h1>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WHOIS</td>
+<td>Domain registration information</td>
+</tr>
+<tr>
+<td>WhatWeb</td>
+<td>Website technology fingerprinting</td>
+</tr>
+<tr>
+<td>Nslookup</td>
+<td>DNS resolution</td>
+</tr>
+<tr>
+<td>cURL</td>
+<td>HTTP response header inspection</td>
+</tr>
+<tr>
+<td>WAFW00F</td>
+<td>Web Application Firewall identification</td>
+</tr>
+<tr>
+<td>DNSRecon</td>
+<td>DNS record enumeration</td>
+</tr>
+<tr>
+<td>Zenmap</td>
+<td>Graphical network scanning interface</td>
+</tr>
+<tr>
+<td>Nmap</td>
+<td>Network discovery engine</td>
+</tr>
+</tbody>
+</table>
+<h1>6. Activities Performed and Results</h1>
+<h2>6.1 W2-PM1 – Footprinting and Reconnaissance</h2>
+<h3>Task 1 – WHOIS</h3>
+<p>Command:</p>
+<p>whois networkwalks.com</p>
+<p>Findings:</p>
+<ul>
+<li>Registrar identified as GoDaddy.com, LLC.</li>
+<li>Domain creation date reported as 6 November 2019.</li>
+<li>Registry expiry date reported as 6 November 2027.</li>
+<li>Nameservers returned: NS6135.HOSTGATOR.COM, NS6136.HOSTGATOR.COM, NS29.DOMAINCONTROL.COM, and NS30.DOMAINCONTROL.COM.</li>
+<li>WHOIS displayed registry-level and registrar-level timestamps with different time-zone offsets.</li>
+</ul>
+<p>Purpose:</p>
+<p>WHOIS provides publicly available domain registration information and helps understand domain ownership and registration infrastructure.</p>
+<h3>Task 2 – WhatWeb</h3>
+<p>Command:</p>
+<p>whatweb networkwalks.com</p>
+<p>Findings:</p>
+<ul>
+<li>Apache web server identified.</li>
+<li>WordPress 7.1.4 identified.</li>
+<li>Bootstrap technology fingerprint reported by WhatWeb.</li>
+<li>jQuery 3.7.1 identified.</li>
+<li>WordPress Download Manager 3.3.76 identified.</li>
+<li>Google Tag Manager detected.</li>
+</ul>
+<p>The reported technology versions are fingerprinting observations and do not independently establish that the software is vulnerable.</p>
+<p>Purpose:</p>
+<p>WhatWeb helps identify technologies used by a website.</p>
+<h3>Task 3 – Nslookup</h3>
+<p>Command:</p>
+<p>nslookup networkwalks.com</p>
+<p>Finding:</p>
+<p>The domain resolved to:</p>
+<p>192.232.216.135</p>
+<p>Purpose:</p>
+<p>Nslookup converts a domain name into an IP address using DNS.</p>
+<h3>Task 4 – cURL</h3>
+<p>Command:</p>
+<p>curl -I https://networkwalks.com</p>
+<p>Findings:</p>
+<ul>
+<li>HTTP response: 200 OK</li>
+<li>HTTP protocol: HTTP/2</li>
+<li>Apache server information was returned.</li>
+<li>WordPress-related response headers were observed.</li>
+<li>A WordPress REST API link was present.</li>
+</ul>
+<p>Purpose:</p>
+<p>cURL was used to inspect HTTP response headers without downloading the full web page.</p>
+<h3>Task 5 – WAFW00F</h3>
+<p>Command:</p>
+<p>wafw00f https://networkwalks.com</p>
+<p>Finding:</p>
+<p>WAFW00F identified ModSecurity (SpiderLabs) as the Web Application Firewall.</p>
+<p>Purpose:</p>
+<p>WAFW00F helps identify whether a website is protected by a Web Application Firewall.</p>
+<p>This detection is a fingerprinting result and does not confirm how effectively the firewall blocks attacks.</p>
+<h3>Task 6 – DNSRecon</h3>
+<p>Command:</p>
+<p>dnsrecon -d networkwalks.com</p>
+<p>Findings:</p>
+<ul>
+<li>SOA: ns6135.hostgator.com (50.87.144.87).</li>
+<li>NS: ns6135.hostgator.com (50.87.144.87).</li>
+<li>NS: ns6136.hostgator.com (192.232.216.131).</li>
+<li>MX: mail.networkwalks.com (192.232.216.135).</li>
+<li>A: networkwalks.com (192.232.216.135).</li>
+<li>SRV: Eight autodiscover service endpoints were listed, using cpanelemaildiscovery.cpanel.net on port 443.</li>
+<li>DNSRecon summary displayed: 8 Records Found.</li>
+</ul>
+<p>The DNSSEC query returned a no-answer message. This is recorded as an observation and is not treated as a confirmed security vulnerability.</p>
+<p>Purpose:</p>
+<p>DNSRecon helps enumerate publicly available DNS records and understand DNS infrastructure.</p>
+<h2>6.2 W2-PM5 – Zenmap Network Scanning</h2>
+<h3>Task 1 – Zenmap Installation</h3>
+<p>Command:</p>
+<p>command -v zenmap</p>
+<p>Result:</p>
+<p>/usr/bin/zenmap</p>
+<p>Zenmap was already installed and successfully verified.</p>
+<h3>Task 2 – Local IP Address and Subnet</h3>
+<p>Command:</p>
+<p>ip -4 addr show eth0</p>
+<p>Results:</p>
+<ul>
+<li>Interface: eth0</li>
+<li>IP Address: 10.0.0.2</li>
+<li>Prefix: /24</li>
+<li>Network: 10.0.0.0/24</li>
+<li>Broadcast: 10.0.0.255</li>
+</ul>
+<h3>Task 3 – Live Host Discovery</h3>
+<p>Zenmap was launched and the Ping Scan profile was used.</p>
+<p>Target:</p>
+<p>10.0.0.0/24</p>
+<p>Equivalent Nmap command:</p>
+<p>nmap -sn 10.0.0.0/24</p>
+<p>Results:</p>
+<p>Three live IP addresses were discovered:</p>
+<ul>
+<li>10.0.0.1</li>
+<li>10.0.0.2</li>
+<li>10.0.0.3</li>
+</ul>
+<p>The scan reported 256 IP addresses scanned and three hosts up.</p>
+<h3>Task 4 – Live Host Count</h3>
+<p>The discovered host count was recorded from the scan output.</p>
+<p>Result:</p>
+<p>3 live hosts.</p>
+<h3>Task 5 – IP Addresses</h3>
+<p>The following IP addresses were recorded:</p>
+<table>
+<thead>
+<tr>
+<th>No.</th>
+<th>IP Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>10.0.0.1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>10.0.0.3</td>
+</tr>
+<tr>
+<td>3</td>
+<td>10.0.0.2</td>
+</tr>
+</tbody>
+</table>
+<h3>Task 6 – MAC Addresses</h3>
+<p>The scan and local interface information returned:</p>
+<table>
+<thead>
+<tr>
+<th>IP Address</th>
+<th>MAC Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10.0.0.1</td>
+<td>52:54:00:12:35:00</td>
+</tr>
+<tr>
+<td>10.0.0.3</td>
+<td>52:54:00:12:35:00</td>
+</tr>
+<tr>
+<td>10.0.0.2</td>
+<td>08:00:27:5a:87:bc</td>
+</tr>
+</tbody>
+</table>
+<p>Note:</p>
+<p>The same MAC address was reported for 10.0.0.1 and 10.0.0.3. These observations were recorded as returned by the virtualized lab environment. Their individual device identities were not independently verified.</p>
+<h3>Task 7 – Network Topology</h3>
+<p>The Zenmap Topology view was used to generate a network diagram.</p>
+<p>The Legend was enabled and the topology was exported as a PDF.</p>
+<p>Evidence file:</p>
+<p>W2-PM5-Network-Topology.pdf</p>
+<h1>7. Risk Analysis and Observations</h1>
+<p>The following table records potential security observations from the completed exercises.</p>
+<table>
+<thead>
+<tr>
+<th>Observation</th>
+<th>Evidence</th>
+<th>Potential Security Relevance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Website technology information is publicly identifiable</td>
+<td>WhatWeb results</td>
+<td>May help an attacker identify technologies requiring further security review</td>
+</tr>
+<tr>
+<td>Domain IP address is publicly resolvable</td>
+<td>Nslookup results</td>
+<td>Helps identify the hosting address</td>
+</tr>
+<tr>
+<td>HTTP headers expose technical information</td>
+<td>cURL results</td>
+<td>May assist technology fingerprinting</td>
+</tr>
+<tr>
+<td>WAF technology is identifiable</td>
+<td>WAFW00F results</td>
+<td>Reveals information about the website's defensive architecture</td>
+</tr>
+<tr>
+<td>DNS infrastructure records are publicly available</td>
+<td>DNSRecon results</td>
+<td>Helps map domain and mail infrastructure</td>
+</tr>
+<tr>
+<td>Three live hosts were discovered</td>
+<td>Zenmap Ping Scan</td>
+<td>Helps administrators understand active devices in their lab network</td>
+</tr>
+</tbody>
+</table>
+<p>These are observations, not confirmed vulnerabilities.</p>
+<p>No CVSS scores have been assigned because vulnerability validation and exploitation were outside the completed project scope.</p>
+<h1>8. Recommendations</h1>
+<p>Based on the observations, the following security improvements are recommended:</p>
+<ol>
+<li>Regularly review publicly exposed website technology information.</li>
+<li>Keep CMS platforms, plugins, and web server software updated.</li>
+<li>Review HTTP response headers and avoid unnecessary technical information disclosure.</li>
+<li>Periodically review DNS records and remove obsolete entries.</li>
+<li>Keep Web Application Firewall rules updated and monitor security logs.</li>
+<li>Perform regular network discovery within authorized networks.</li>
+<li>Investigate unexpected devices and maintain an accurate inventory of network assets.</li>
+<li>Maintain updated network topology documentation.</li>
+<li>Ensure all security testing is performed within an approved scope.</li>
+</ol>
+<h1>9. Limitations</h1>
+<p>The activities were limited to the assigned footprinting tasks and host discovery exercises.</p>
+<ul>
+<li>No exploitation was performed.</li>
+<li>No confirmed vulnerability assessment was completed.</li>
+<li>The Zenmap Ping Scan identified live hosts but did not establish their running services or open ports.</li>
+<li>MAC address information was recorded as returned by the virtualized environment.</li>
+<li>The results represent observations made during the lab exercises.</li>
+</ul>
+<h1>10. Conclusion</h1>
+<p>During Week 2 of the Networkwalks Cybersecurity Internship, I completed practical activities covering footprinting, reconnaissance, and network scanning.</p>
+<p>In W2-PM1, I used six Kali Linux tools to collect domain registration, website technology, DNS, HTTP header, and WAF information.</p>
+<p>In W2-PM5, I used Zenmap and Nmap to discover live hosts on my VirtualBox NAT Network, record their IP and MAC addresses, and export a network topology PDF.</p>
+<p>These exercises improved my understanding of reconnaissance, host discovery, network mapping, command-line tools, and technical reporting.</p>
+<p>The most important lesson was that accurate documentation is essential in cybersecurity. Findings must be supported by evidence, limitations must be clearly stated, and all testing must remain within an authorized scope.</p>
+<h1>11. Evidence Collected</h1>
+<h2>W2-PM1 – Footprinting</h2>
+<p>Evidence includes:</p>
+<ul>
+<li>Six task output text files.</li>
+<li>Terminal screenshots.</li>
+<li>W2-PM1 README documentation.</li>
+</ul>
+<h2>W2-PM5 – Zenmap Network Scanning</h2>
+<p>Evidence includes:</p>
+<ul>
+<li>Seven task output text files.</li>
+<li>Zenmap scan screenshot.</li>
+<li>Network topology screenshot.</li>
+<li>Network topology PDF.</li>
+<li>W2-PM5 README documentation.</li>
+</ul>
+<p>Supporting evidence will be organized in the Evidence directory.</p>
+<hr />
+<p><strong>End of Report</strong></p>
+<p>EOF    </p>
+</body>
+</html>
